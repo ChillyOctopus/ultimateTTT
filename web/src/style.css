@@ -477,13 +477,15 @@ h2 {
 /* The card over the board: the menu, the bot's settings, and the result */
 .card {
   position: absolute;
-  inset: 3%;
+  /* At least the board's size, and taller when its content needs it: it then covers the panel below. */
+  inset: 3% 3% auto;
+  min-height: 94%;
   z-index: 3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 14px;
-  padding: 20px;
+  justify-content: safe center;
+  gap: 10px;
+  padding: 14px 16px;
   overflow: auto;
   border-radius: 14px;
   background: var(--ground);
@@ -530,6 +532,7 @@ h2 {
 .options {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr; /* every card as tall as the tallest */
   gap: 8px;
   width: min(100%, 360px);
   margin: 0 auto;
@@ -537,6 +540,7 @@ h2 {
 
 .options label {
   position: relative;
+  display: flex;
   cursor: pointer;
 }
 
@@ -546,6 +550,7 @@ h2 {
 }
 
 .options span {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -716,11 +721,12 @@ h2 {
   }
 
   .card {
-    inset: 9%;
+    inset: 9% 9% auto;
+    min-height: 82%;
   }
 
   .options {
-    grid-template-columns: repeat(4, 1fr);
+    width: min(100%, 400px);
   }
 
   .options[data-name='side'] {

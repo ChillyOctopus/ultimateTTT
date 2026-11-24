@@ -10,8 +10,8 @@ import { instantiate } from './engine.js';
 const LEVELS = [
   { id: 'easy', name: 'Easy', note: 'Looks one move ahead, and slips up', settings: { depth: 1, blunder: 0.5 } },
   { id: 'medium', name: 'Medium', note: 'Looks three moves ahead', settings: { depth: 3, slack: 2 } },
-  { id: 'hard', name: 'Hard', note: 'uttt.ai’s network, 200 positions a move', settings: { visits: 200, ms: 2000, prove: 2000 } },
-  { id: 'expert', name: 'Expert', note: 'uttt.ai’s network, 1,000 positions a move', settings: { visits: 1000, ms: 6000, prove: 4000 } },
+  { id: 'hard', name: 'Hard', note: 'uttt.ai’s bot, 200 positions', settings: { visits: 200, ms: 2000, prove: 2000 } },
+  { id: 'expert', name: 'Expert', note: 'uttt.ai’s bot, 1,000 positions', settings: { visits: 1000, ms: 6000, prove: 4000 } },
 ];
 /** The strong levels vary their first move among the best few, so that games differ. */
 const OPENING = { depth: 4, slack: 2 };
