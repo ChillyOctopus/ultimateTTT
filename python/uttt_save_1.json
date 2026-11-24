@@ -1,0 +1,206 @@
+{
+  "current_player": "X",
+  "next_board": [
+    2,
+    0
+  ],
+  "game_status": "in_progress",
+  "winner": " ",
+  "super_board": [
+    [
+      {
+        "board": [
+          [
+            "X",
+            "O",
+            "O"
+          ],
+          [
+            "O",
+            "X",
+            "O"
+          ],
+          [
+            "X",
+            "O",
+            "O"
+          ]
+        ],
+        "status": "o_won",
+        "winner": "O"
+      },
+      {
+        "board": [
+          [
+            "X",
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "X"
+          ]
+        ],
+        "status": "draw",
+        "winner": " "
+      },
+      {
+        "board": [
+          [
+            "X",
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "X"
+          ]
+        ],
+        "status": "draw",
+        "winner": " "
+      }
+    ],
+    [
+      {
+        "board": [
+          [
+            "X",
+            "X",
+            "O"
+          ],
+          [
+            "X",
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "O",
+            "O"
+          ]
+        ],
+        "status": "o_won",
+        "winner": "O"
+      },
+      {
+        "board": [
+          [
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "O"
+          ],
+          [
+            "X",
+            "X",
+            "O"
+          ]
+        ],
+        "status": "draw",
+        "winner": " "
+      },
+      {
+        "board": [
+          [
+            "O",
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "X",
+            "O"
+          ],
+          [
+            "X",
+            "O",
+            "X"
+          ]
+        ],
+        "status": "draw",
+        "winner": " "
+      }
+    ],
+    [
+      {
+        "board": [
+          [
+            "X",
+            "O",
+            "X"
+          ],
+          [
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            " ",
+            " ",
+            " "
+          ]
+        ],
+        "status": "in_progress",
+        "winner": " "
+      },
+      {
+        "board": [
+          [
+            "X",
+            "X",
+            "O"
+          ],
+          [
+            "O",
+            "X",
+            "O"
+          ],
+          [
+            "X",
+            "O",
+            "O"
+          ]
+        ],
+        "status": "x_won",
+        "winner": "X"
+      },
+      {
+        "board": [
+          [
+            "X",
+            "O",
+            "O"
+          ],
+          [
+            "X",
+            "X",
+            "O"
+          ],
+          [
+            "X",
+            "X",
+            "X"
+          ]
+        ],
+        "status": "x_won",
+        "winner": "X"
+      }
+    ]
+  ]
+}

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Ultimate tic-tac-toe</title>
+    <meta
+      name="description"
+      content="Play ultimate tic-tac-toe against a bot, with a friend, or on an analysis board that proves late positions won, drawn, or lost. It all runs in your browser."
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap top-row">
+        <a class="home" href="https://jistevenson.com/">Jacob Stevenson</a>
+        <nav class="top-nav" aria-label="This page">
+          <a href="#rules">How to play</a>
+          <a href="#about">About</a>
+          <a href="https://jistevenson.com/lab">The lab</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="game" aria-label="Game">
+        <div class="bar">
+          <button type="button" class="icon-btn" id="undo" aria-label="Take back a move" disabled>
+            <span aria-hidden="true">←</span>
+          </button>
+          <p class="turn" id="turn" role="status">Loading…</p>
+          <button type="button" class="icon-btn" id="redo" aria-label="Replay the move you took back" disabled>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <div class="board-wrap">
+          <div class="board" id="board"></div>
+          <div class="card" id="card" hidden></div>
+        </div>
+
+        <div class="panel" id="panel">
+          <p class="status" id="status"></p>
+          <div class="analysis" id="analysis" hidden>
+            <div class="meter" id="meter" aria-hidden="true"><span class="meter-x" id="meter-x"></span></div>
+            <p class="verdict" id="verdict"></p>
+            <p class="proof" id="proof"></p>
+            <ul class="legend" id="legend">
+              <li><span class="dot q-best"></span>Best</li>
+              <li><span class="dot q-good"></span>Good</li>
+              <li><span class="dot q-ok"></span>Dubious</li>
+              <li><span class="dot q-bad"></span>Bad</li>
+            </ul>
+            <ul class="legend" id="proof-legend" hidden>
+              <li><span class="badge p-win">W</span>Wins</li>
+              <li><span class="badge p-draw">D</span>Draws</li>
+              <li><span class="badge p-loss">L</span>Loses</li>
+            </ul>
+          </div>
+          <div class="controls">
+            <button type="button" class="btn ghost" id="menu-btn">Menu</button>
+            <button type="button" class="btn ghost" id="again-btn">New game</button>
+            <label class="toggle" id="analysis-toggle-wrap">
+              <input type="checkbox" id="analysis-toggle" />
+              Show analysis
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap text">
+        <section id="rules">
+          <p class="eyebrow">How to play</p>
+          <h2>Nine games of tic-tac-toe in one</h2>
+          <ol class="rules">
+            <li>The board is nine small tic-tac-toe boards in a 3 × 3 grid. X moves first.</li>
+            <li>
+              Where you play decides where your opponent plays next. Take the top-right square of a small board, and they
+              must play in the top-right board. The board to play is shaded.
+            </li>
+            <li>Get three in a row on a small board to win it. Win three small boards in a row, across, down, or diagonally, to win the game.</li>
+            <li>If you send your opponent to a board that’s already won or full, they can play in any open board.</li>
+            <li>If every board is finished and no one has three in a row, the game is a draw.</li>
+          </ol>
+          <p>
+            Some versions break that tie by counting who won more boards. This one doesn’t: these are the standard rules, the
+            ones the solver works on.
+          </p>
+        </section>
+
+        <section id="about">
+          <p class="eyebrow">About</p>
+          <h2>How the bot works</h2>
+          <p>
+            Hard and Expert are <a href="https://www.uttt.ai/">uttt.ai</a>’s player, by Arkadiusz Nowaczyński: a neural
+            network trained AlphaZero-style on millions of positions from self-play, guiding a tree search. Expert searches
+            1,000 positions a move, as uttt.ai does on a computer, and Hard 200; on a slow phone they search fewer, so a
+            move never takes more than a few seconds. Easy and Medium are
+            <a href="https://github.com/nelhage/ultimattt">ultimattt</a>, Nelson Elhage’s engine, looking one or three moves
+            ahead. It all runs on your device, compiled to WebAssembly, and your moves never leave it. The network is a
+            10 MB download, fetched the first time you play Hard or Expert or open the analysis.
+          </p>
+          <p>
+            From move 30, Hard and Expert also run ultimattt’s solver before each move. Once it proves the position won or
+            drawn, the bot plays a move that keeps that result, so from there it plays perfectly.
+          </p>
+          <p>
+            The analysis board runs the same search and marks each move by how much it gives up against the search’s
+            choice. From about move 28, it also runs the solver, which proves the result with perfect play from both
+            sides, a fact rather than an estimate. Once the solver settles a position, it marks each move as one that
+            wins, draws, or loses.
+          </p>
+
+          <h2>The story</h2>
+          <p>
+            No one knows yet whether X can force a win in ultimate tic-tac-toe. A variant with a stricter rule was
+            <a href="https://arxiv.org/abs/2006.02353">solved in 2020</a> (the first player wins), but the standard game is
+            open. I set out to see how far a solver could get, starting from Nelson Elhage’s and his write-up at
+            <a href="https://minimax.dev/docs/ultimate/">minimax.dev</a>.
+          </p>
+          <p>
+            The first job was trust. I checked each of the solver’s shortcuts against brute-force search and corrected two
+            endgame rules, tested on a million random positions, and the solver now agrees with brute force on 2,553 random
+            late positions. Then speed: a small neural network, trained on positions the solver
+            had settled, tells it which moves to try first, and on hard positions it cuts the search to about a third.
+          </p>
+          <p>
+            The whole game is still a long way off. Elhage estimated a full solve at a few hundred million CPU-hours, which is
+            about 700 years on my 16-core machine. The search has to shrink a thousandfold before pooling volunteers’
+            computers makes sense, so that’s the work now. The code is on
+            <a href="https://github.com/ChillyOctopus/ultimateTTT">GitHub</a>.
+          </p>
+
+          <h2>Credits</h2>
+          <ul class="credits">
+            <li>
+              The rules, Easy and Medium, and the solver: <a href="https://github.com/nelhage/ultimattt">ultimattt</a> by
+              Nelson Elhage, under the Apache License 2.0, with my changes marked in each file.
+            </li>
+            <li>
+              Hard, Expert, the analysis, and the layout: <a href="https://github.com/arnowaczynski/utttai">uttt.ai</a> by Arkadiusz
+              Nowaczyński, under the Apache License 2.0. Its network and search run here in my Rust port, checked against
+              the original.
+            </li>
+            <li>The type: Newsreader and Hanken Grotesk, under the SIL Open Font License.</li>
+            <li>The license texts: <a href="licenses.txt">licenses.txt</a>.</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">
+        <p>Made by <a href="https://jistevenson.com/">Jacob Stevenson</a>.</p>
+      </div>
+    </footer>
+
+    <template id="menu-card">
+      <h1>Ultimate tic-tac-toe</h1>
+      <p class="card-lead">Nine games of tic-tac-toe in one. Play the bot or a friend, or study a position.</p>
+      <div class="card-actions">
+        <button type="button" class="btn" data-go="resume" hidden>Resume game</button>
+        <button type="button" class="btn" data-go="setup">Play the bot</button>
+        <button type="button" class="btn secondary" data-go="two">Two players</button>
+        <button type="button" class="btn secondary" data-go="analysis">Analysis board</button>
+        <a class="btn secondary" href="#rules" data-go="rules">How to play</a>
+      </div>
+    </template>
+
+    <template id="setup-card">
+      <h2>Play the bot</h2>
+      <fieldset class="choice">
+        <legend>Level</legend>
+        <div class="options" data-name="level"></div>
+      </fieldset>
+      <fieldset class="choice">
+        <legend>You play</legend>
+        <div class="options" data-name="side">
+          <label><input type="radio" name="side" value="X" /><span><b>X</b> Move first</span></label>
+          <label><input type="radio" name="side" value="O" /><span><b>O</b> Move second</span></label>
+        </div>
+      </fieldset>
+      <div class="card-actions row">
+        <button type="button" class="btn secondary" data-go="menu">Back</button>
+        <button type="button" class="btn" data-go="start">Start</button>
+      </div>
+    </template>
+
+    <template id="result-card">
+      <h2 data-slot="title"></h2>
+      <p class="card-lead" data-slot="lead"></p>
+      <div class="card-actions">
+        <button type="button" class="btn" data-go="again">Play again</button>
+        <button type="button" class="btn secondary" data-go="review">Review in analysis</button>
+        <button type="button" class="btn secondary" data-go="menu">Menu</button>
+      </div>
+    </template>
+  </body>
+</html>

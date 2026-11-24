@@ -1,0 +1,15 @@
+{
+  "name": "uttt-web",
+  "private": true,
+  "type": "module",
+  "description": "Ultimate tic-tac-toe's web page: play the ultimattt engine, which runs in the browser as WebAssembly.",
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node serve.mjs",
+    "test": "node test.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/hanken-grotesk": "5.3.0",
+    "@fontsource-variable/newsreader": "5.3.0"
+  }
+}

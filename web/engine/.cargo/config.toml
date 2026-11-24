@@ -1,0 +1,4 @@
+# WebAssembly SIMD (every current browser has it): the network's dot products
+# run four lanes at a time.
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "target-feature=+simd128"]
