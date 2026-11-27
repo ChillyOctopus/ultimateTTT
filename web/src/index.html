@@ -19,16 +19,30 @@
     <script type="module" src="app.js"></script>
   </head>
   <body>
-    <header class="top">
-      <div class="wrap top-row">
-        <a class="home" href="https://jistevenson.com/">Jacob Stevenson</a>
-        <nav class="top-nav" aria-label="This page">
-          <a href="#rules">How to play</a>
-          <a href="#about">About</a>
-          <a href="https://jistevenson.com/lab">The lab</a>
+    <!-- site-header:start (written by jistevenson.com's npm run sync-header; edit it there, not here) -->
+    <header class="site-header">
+      <div class="site-wrap">
+        <a class="brand" href="https://jistevenson.com/">Jacob Stevenson</a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="https://jistevenson.com/work/">Work</a>
+          <a href="https://jistevenson.com/lab/" aria-current="page">Lab</a>
+          <a href="https://jistevenson.com/talks/">Talks</a>
+          <a href="https://jistevenson.com/cv/">CV</a>
+          <a href="https://jistevenson.com/beyond/">About</a>
         </nav>
+        <a class="header-search" href="https://jistevenson.com/search/" aria-label="Search jistevenson.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path></svg>
+        </a>
+        <a class="header-cta" href="https://jistevenson.com/book/">Book a call</a>
       </div>
     </header>
+    <!-- site-header:end -->
+    <nav class="subnav" aria-label="This page">
+      <div class="wrap">
+        <a href="#rules">How to play</a>
+        <a href="#about">About</a>
+      </div>
+    </nav>
 
     <main>
       <section class="game" aria-label="Game">

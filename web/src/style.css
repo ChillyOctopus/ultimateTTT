@@ -102,49 +102,176 @@ h2 {
   padding-inline: var(--gutter);
 }
 
-/* The bar back to the main site */
-.top {
-  border-bottom: 1px solid var(--line);
+/* site-header:start (written by jistevenson.com's npm run sync-header; edit it there, not here) */
+/* The main site's header, for the mini-sites (SPEC.md, Mini-sites): the same links in the same places as on
+   jistevenson.com. `npm run sync-header` copies this into each mini-site's stylesheet; edit it here. Self-contained, with
+   the main site's colors and fonts as fallbacks, so it looks the same whatever the mini-site defines. */
+.site-header {
+  border-bottom: 1px solid var(--line, #e0e2d4);
+  background: var(--ground, #ffffff);
+  font-family: var(--sans, 'Hanken Grotesk Variable', 'Segoe UI', system-ui, sans-serif);
 }
 
-.top-row {
+.site-header .site-wrap {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  column-gap: 16px;
+  column-gap: 8px;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 8px var(--gutter, clamp(16px, 5vw, 48px));
 }
 
-.home,
-.top-nav a {
+.site-header .brand {
+  order: 1;
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  color: var(--ink);
+  color: var(--ink, #1d2114);
+  font-family: var(--serif, 'Newsreader Variable', 'Iowan Old Style', Georgia, serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   text-decoration: none;
 }
 
-.home {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 1.25rem;
+.site-header .header-search {
+  order: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  border-radius: 8px;
+  color: var(--ink, #1d2114);
 }
 
-.top-nav {
-  display: flex;
-  gap: 16px;
+.site-header .header-search:hover {
+  background: var(--tint, #eef2e2);
 }
 
-.top-nav a {
-  font-weight: 600;
+.site-header .header-search svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.site-header .header-cta {
+  order: 3;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: var(--accent, #b02a3a);
+  color: #ffffff;
   font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.home:hover,
-.top-nav a:hover {
+.site-header .header-cta:hover {
+  background: var(--accent-deep, #8e1f2e);
+  color: #ffffff;
+}
+
+.site-header .site-nav {
+  order: 4;
+  display: flex;
+  flex-basis: 100%;
+  gap: 0 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.site-header .site-nav a {
+  padding: 12px 0;
+  color: var(--ink, #1d2114);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.site-header .site-nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent, #b02a3a);
+}
+
+.site-header .site-nav a[aria-current='page'] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--accent, #b02a3a);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.site-header a:focus-visible {
+  outline: 2px solid var(--accent, #b02a3a);
+  outline-offset: 2px;
+}
+
+@media (min-width: 900px) {
+  .site-header .site-wrap {
+    column-gap: 24px;
+  }
+
+  .site-header .brand {
+    font-size: 1.5rem;
+  }
+
+  .site-header .site-nav {
+    order: 2;
+    flex-basis: auto;
+    gap: 0 22px;
+    margin-left: auto;
+  }
+
+  .site-header .header-search {
+    order: 3;
+    margin-left: 0;
+  }
+
+  .site-header .header-cta {
+    order: 4;
+    padding: 0 18px;
+  }
+}
+/* site-header:end */
+
+/* This page's own sections, in a row under the main site's header */
+.subnav {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+/* As wide as the header above it, so its links line up under the name */
+.subnav .wrap {
+  display: flex;
+  gap: 20px;
+  max-width: 1180px;
+}
+
+.subnav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.subnav a:hover {
   color: var(--ink);
   text-decoration: underline;
   text-decoration-color: var(--accent);
+  text-underline-offset: 6px;
 }
 
 /* Buttons */
